@@ -52,6 +52,7 @@ body {
   width: auto;
   height: 35px;
   background-color: pink;
+  color: black;
   justify-content: right;
 
 }
