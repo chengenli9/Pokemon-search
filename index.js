@@ -3,10 +3,21 @@ const pokemonId = document.getElementById("pokemon-id");
 const pokemonType = document.getElementById("pokemon-type");
 const pokemonWeakness = document.getElementById("pokemon-weakness");
 const imgElement = document.getElementById("pokemon-sprite");
+const fetchBtn = document.getElementById("fetch-btn");
 const rightBtn = document.getElementById("right-btn");
 const leftBtn = document.getElementById("left-btn");
+const scrollBtns = document.getElementsByClassName('scroll-btn');
 
 
+fetchBtn.addEventListener('click', ()=> {
+  fetchData();
+
+  // checks each button with the same class name
+  for (let btn of scrollBtns) {
+    btn.style.visibility = 'visible';
+  }
+  
+});
 
 async function fetchData() {
   try {
@@ -44,8 +55,10 @@ async function fetchData() {
       weaknesses.forEach(weakness => weaknessSet.add(weakness));
     })
 
-    //updates the stats on screen
-    statName.innerHTML = `Name: ${data.name.charAt(0).toUpperCase() + data.name.slice(1)}`;
+    // updates the stats on screen
+
+    // first letter is capitalized and replace '-' with a 'space'
+    statName.innerHTML = `Name: ${data.name.charAt(0).toUpperCase() + data.name.slice(1).replace("-", " ")}`; 
     pokemonId.innerHTML = `Id: ${id.toString().padStart(4, '0')}`;
     pokemonType.innerHTML = `Type: ${types.join(', ')}`;
     pokemonWeakness.innerHTML = `Weakness: ${Array.from(weaknessSet).join(', ')}`;
