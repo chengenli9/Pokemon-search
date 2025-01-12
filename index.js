@@ -11,10 +11,11 @@ const leftBtn = document.getElementById("left-btn");
 async function fetchData() {
   try {
     // take the user input value
-    const pokemonName = document.getElementById("pokemon-name-input").value.toLowerCase().replace(" ", "-");
+    const input = document.getElementById("pokemon-name-input").value.toLowerCase().replace(" ", "-");
 
+    const url = `https://pokeapi.co/api/v2/pokemon/${input}`;
     // fetch data from api
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
+    const response = await fetch(url);
 
     // convert to javascript object
     const data = await response.json();
@@ -44,7 +45,7 @@ async function fetchData() {
     })
 
     //updates the stats on screen
-    statName.innerHTML = `Name: ${pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1)}`;
+    statName.innerHTML = `Name: ${data.name.charAt(0).toUpperCase() + data.name.slice(1)}`;
     pokemonId.innerHTML = `Id: ${id.toString().padStart(4, '0')}`;
     pokemonType.innerHTML = `Type: ${types.join(', ')}`;
     pokemonWeakness.innerHTML = `Weakness: ${Array.from(weaknessSet).join(', ')}`;
